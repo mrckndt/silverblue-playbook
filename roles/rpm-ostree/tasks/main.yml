@@ -21,6 +21,11 @@
     - item.value.state == 'present'
     - rpm_ostree_alter_base_packages | bool
 
+- name: Merge kernel params and overwrites
+  set_fact:
+    rpm_ostree_kargs: '{{ rpm_ostree_kargs | combine(rpm_ostree_kargs_overwrite) }}'
+  when: rpm_ostree_kargs_overwrite | default()
+
 - name: Set kernel parameters
   ansible.builtin.command:
     cmd: rpm-ostree kargs --append-if-missing="{{ item.key }}"
@@ -53,6 +58,11 @@
     - Reload rpm-ostree configuration
     - Enable rpm-ostree-automatic
   when: rpm_ostree_enable_autoupdates | bool
+
+- name: Merge layered packages and overwrites
+  set_fact:
+    rpm_ostree_layered_packages: '{{ rpm_ostree_layered_packages | combine(rpm_ostree_layered_packages_overwrite) }}'
+  when: rpm_ostree_layered_packages_overwrite | default()
 
 - name: Add/remove layered packages
   community.general.rpm_ostree_pkg:

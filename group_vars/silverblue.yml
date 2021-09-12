@@ -94,8 +94,6 @@ rpm_ostree_base_packages:
     state: absent
 
 rpm_ostree_kargs:
-  'i915.enable_psr=0':
-    state: present
   'rd.luks.options=discard':
     state: absent
 

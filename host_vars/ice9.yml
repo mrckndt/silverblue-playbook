@@ -1,0 +1,5 @@
+---
+flatpak_flatpaks_overwrite:
+  com.github.ransome1.sleek:
+    state: present
+    remote: flathub
