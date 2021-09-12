@@ -1,0 +1,27 @@
+---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ etc_hostname }}"
+    use: systemd
+  become: yes
+  when: etc_set_hostname | bool
+
+- name: Include users.yml
+  ansible.builtin.include: users.yml
+  when:  etc_update_users | bool
+
+- name: Include blscfg.yml
+  ansible.builtin.include: blscfg.yml
+  when: etc_enable_BLSCFG | bool
+
+- name: Include nts.yml
+  ansible.builtin.include: nts.yml
+  when: etc_enable_NTS | bool
+
+- name: Include firewalld.yml
+  ansible.builtin.include: firewalld.yml
+  when: etc_configure_firewalld | bool
+
+- name: Include sysctl.yml
+  ansible.builtin.include: sysctl.yml
+  when: etc_configure_sysctl | bool

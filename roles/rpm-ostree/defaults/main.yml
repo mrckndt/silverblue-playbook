@@ -1,0 +1,5 @@
+---
+rpm_ostree_alter_base_packages: true
+rpm_ostree_alter_layered_packages: true
+rpm_ostree_configure_kargs: true
+rpm_ostree_enable_autoupdates: true

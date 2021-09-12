@@ -1,0 +1,10 @@
+---
+- name: Configure sysctl
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value.value }}"
+    state: "{{ item.value.state }}"
+    sysctl_file: "/etc/sysctl.d/100-custom.conf"
+    sysctl_set: yes
+  become: yes
+  loop: "{{ lookup('dict', etc_sysctl_params, wantlist=True) }}"

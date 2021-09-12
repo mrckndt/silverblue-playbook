@@ -1,0 +1,7 @@
+---
+- name: Update users
+  ansible.builtin.user:
+    name: "{{ item.key }}"
+    shell: "{{ item.value.shell }}"
+  become: yes
+  loop: "{{ lookup('dict', etc_users, wantlist=True) }}"

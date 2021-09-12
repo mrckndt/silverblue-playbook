@@ -1,0 +1,17 @@
+---
+- name: Add/remove Flatpak remotes
+  community.general.flatpak_remote:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    flatpakrepo_url: "{{ item.value.url }}"
+  become: true
+  loop: "{{ lookup('dict', flatpak_remotes ) }}"
+  when: flatpak_configure_remotes | bool
+
+- name: Add/remove Flatpaks
+  community.general.flatpak:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    remote: "{{ item.value.remote }}"
+  loop: "{{ lookup('dict', flatpak_flatpaks) }}"
+  when: flatpak_alter_flatpaks | bool

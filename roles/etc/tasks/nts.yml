@@ -1,0 +1,7 @@
+---
+- name: Enable NTS
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
+  become: yes
+  notify: Restart chronyd

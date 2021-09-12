@@ -1,0 +1,13 @@
+---
+flatpak_configure_remotes: true
+flatpak_alter_flatpaks: true
+
+flatpak_remotes:
+  flathub:
+    state: present
+    url: https://flathub.org/repo/flathub.flatpakrepo
+
+flatpak_flatpaks:
+  com.github.tchx84.Flatseal:
+    state: present
+    remote: flathub
