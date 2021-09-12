@@ -231,10 +231,6 @@ rpm_ostree_layered_packages:
   zsh:
     state: present
 
-etc_users:
-  flexo:
-    shell: /bin/zsh
-
 etc_firewalld:
   syncthing:
     zone: FedoraWorkstation
@@ -248,7 +244,11 @@ etc_sysctl_params:
     value: 524288
     state: present
 
-home_users:
+users:
   flexo:
+    shell: /bin/zsh
     dotfiles: git@git.spa5.dev:flexo/dotfiles
-    update: no
+
+home_gnome_shell_extensions:
+  'https://github.com/ubuntu/gnome-shell-extension-appindicator':
+    extension_uuid: 'appindicatorsupport@rgcjonas.gmail.com'

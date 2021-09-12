@@ -4,4 +4,4 @@
     name: "{{ item.key }}"
     shell: "{{ item.value.shell }}"
   become: yes
-  loop: "{{ lookup('dict', etc_users, wantlist=True) }}"
+  loop: "{{ lookup('dict', users, wantlist=True) }}"

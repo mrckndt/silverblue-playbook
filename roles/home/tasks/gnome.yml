@@ -1,0 +1,9 @@
+---
+- name: Install GNOME Shell Extensions
+  ansible.builtin.git:
+    repo: "{{ item[1].key }}"
+    dest: "/home/{{ item[0] }}/.local/share/gnome-shell/extensions/{{ item[1].value.extension_uuid }}"
+  with_nested:
+    - "{{ users }}"
+    - "{{ home_gnome_shell_extensions | dict2items }}"
+  notify: Compile glib schemas
