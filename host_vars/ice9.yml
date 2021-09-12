@@ -1,5 +1,40 @@
 ---
+etc_hostname: ice9
+
 flatpak_flatpaks_overwrite:
-  com.github.ransome1.sleek:
+  com.github.Bleuzen.FFaudioConverter:
     state: present
     remote: flathub
+  com.snes9x.Snes9x:
+    state: present
+    remote: flathub
+  com.valvesoftware.Steam.CompatibilityTool.Proton:
+    state: present
+    remote: flathub
+  io.github.gitahead.GitAhead:
+    state: absent
+    remote: flathub
+  io.mgba.mGBA:
+    state: present
+    remote: flathub
+  io.openrct2.OpenRCT2:
+    state: present
+    remote: flathub
+  org.gnome.gitg:
+    state: absent
+    remote: flathub
+  org.kde.kid3:
+    state: present
+    remote: flathub
+  org.libreoffice.LibreOffice:
+    state: present
+    remote: flathub
+  org.musicbrainz.Picard:
+    state: present
+    remote: flathub
+
+rpm_ostree_layered_packages_overwrite:
+  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm':
+    state: present
+  VirtualBox:
+    state: present

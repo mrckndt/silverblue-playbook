@@ -3,27 +3,105 @@ flatpak_remotes:
   flathub:
     state: present
     url: https://flathub.org/repo/flathub.flatpakrepo
+  flathub-beta:
+    state: present
+    url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
   fedora:
     state: present
     url: oci+https://registry.fedoraproject.org
 
 flatpak_flatpaks:
+  com.belmoussaoui.Obfuscate:
+    state: present
+    remote: flathub
+  com.bitstower.Markets:
+    state: present
+    remote: flathub
+  com.bitwarden.desktop:
+    state: present
+    remote: flathub
+  com.calibre_ebook.calibre:
+    state: absent
+    remote: flathub
   com.discordapp.Discord:
+    state: present
+    remote: flathub
+  com.github.johnfactotum.Foliate:
+    state: present
+    remote: flathub
+  com.github.junrrein.PDFSlicer:
     state: present
     remote: flathub
   com.github.micahflee.torbrowser-launcher:
     state: present
     remote: flathub
+  com.github.ransome1.sleek:
+    state: present
+    remote: flathub
+  com.github.tchx84.Flatseal:
+    state: present
+    remote: flathub
+  com.google.Chrome:
+    state: present
+    remote: flathub-beta
+  com.jetbrains.IntelliJ-IDEA-Community:
+    state: present
+    remote: flathub
   com.spotify.Client:
+    state: present
+    remote: flathub
+  com.valvesoftware.Steam:
     state: present
     remote: flathub
   com.vscodium.codium:
     state: present
     remote: flathub
+  com.yubico.yubioath:
+    state: present
+    remote: flathub
+  fr.romainvigier.MetadataCleaner:
+    state: present
+    remote: flathub
+  im.riot.Riot:
+    state: present
+    remote: flathub
+  io.github.celluloid_player.Celluloid:
+    state: present
+    remote: flathub
+  org.chromium.Chromium:
+    state: present
+    remote: flathub
+  org.chromium.Chromium.Codecs:
+    state: present
+    remote: flathub
+  org.freedesktop.Platform.ffmpeg-full: # needed for firefox
+    state: present
+    remote: flathub
+  org.freedesktop.Platform.openh264: # needed for firefox
+    state: present
+    remote: flathub
+  org.gimp.GIMP:
+    state: present
+    remote: flathub
+  org.gnome.Evolution:
+    state: present
+    remote: flathub
+  org.gnome.Extensions:
+    state: present
+    remote: flathub
   org.gnome.Firmware:
     state: present
     remote: flathub
+  org.gnome.Solanum:
+    state: present
+    remote: flathub
+  org.gtk.Gtk3theme.Adwaita-dark:
+    state: present
+    remote: flathub
   org.mozilla.firefox:
+    state: present
+    remote: flathub
+  org.remmina.Remmina:
     state: present
     remote: flathub
   org.signal.Signal:
@@ -98,14 +176,12 @@ rpm_ostree_kargs:
     state: absent
 
 rpm_ostree_layered_packages:
-  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm':
-    state: absent
   atool:
     state: present
   bmon:
     state: present
   checksec:
-    state: present
+    state: absent
   docker-compose:
     state: present
   fd-find:
@@ -151,11 +227,10 @@ rpm_ostree_layered_packages:
   wl-clipboard:
     state: present
   youtube-dl:
-    state: present
+    state: absent
   zsh:
     state: present
 
-etc_hostname: chapek9
 etc_users:
   flexo:
     shell: /bin/zsh
