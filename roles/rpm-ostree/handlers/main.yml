@@ -9,7 +9,9 @@
     name: rpm-ostreed-automatic.timer
     state: started
     enabled: yes
+  become: yes
 
 - name: Reload systemd units
   ansible.builtin.systemd:
     daemon_reload: yes
+  become: yes
