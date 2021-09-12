@@ -14,9 +14,6 @@ flatpak_flatpaks:
   com.github.micahflee.torbrowser-launcher:
     state: present
     remote: flathub
-  com.github.ransome1.sleek:
-    state: present
-    remote: flathub
   com.spotify.Client:
     state: present
     remote: flathub

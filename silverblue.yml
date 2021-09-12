@@ -1,6 +1,7 @@
 ---
-- name: "Silverblue"
-  hosts: "localhost"
+- name: "Set up Silverblue workstation"
+  hosts:
+    - silverblue
   connection: "local"
   roles:
     - flatpak
