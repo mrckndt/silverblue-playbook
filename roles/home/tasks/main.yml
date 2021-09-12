@@ -1,0 +1,4 @@
+---
+- name: Include dotfiles.yml
+  ansible.builtin.include: dotfiles.yml
+  when: home_place_dotfiles | bool

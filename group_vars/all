@@ -1,0 +1,184 @@
+---
+flatpak_remotes:
+  flathub:
+    state: present
+    url: https://flathub.org/repo/flathub.flatpakrepo
+  fedora:
+    state: present
+    url: oci+https://registry.fedoraproject.org
+
+flatpak_flatpaks:
+  com.discordapp.Discord:
+    state: present
+    remote: flathub
+  com.github.micahflee.torbrowser-launcher:
+    state: present
+    remote: flathub
+  com.github.ransome1.sleek:
+    state: present
+    remote: flathub
+  com.spotify.Client:
+    state: present
+    remote: flathub
+  com.vscodium.codium:
+    state: present
+    remote: flathub
+  org.gnome.Firmware:
+    state: present
+    remote: flathub
+  org.mozilla.firefox:
+    state: present
+    remote: flathub
+  org.signal.Signal:
+    state: present
+    remote: flathub
+
+  org.gnome.baobab:
+    state: present
+    remote: fedora
+  org.gnome.Calculator:
+    state: present
+    remote: fedora
+  org.gnome.Calendar:
+    state: present
+    remote: fedora
+  org.gnome.Characters:
+    state: present
+    remote: fedora
+  org.gnome.clocks:
+    state: present
+    remote: fedora
+  org.gnome.Contacts:
+    state: present
+    remote: fedora
+  org.gnome.eog:
+    state: present
+    remote: fedora
+  org.gnome.Evince:
+    state: present
+    remote: fedora
+  org.gnome.FileRoller:
+    state: present
+    remote: fedora
+  org.gnome.font-viewer:
+    state: present
+    remote: fedora
+  org.gnome.gedit:
+    state: absent
+    remote: fedora
+  org.gnome.Geary:
+    state: present
+    remote: fedora
+  org.gnome.Logs:
+    state: present
+    remote: fedora
+  org.gnome.Maps:
+    state: present
+    remote: fedora
+  org.gnome.Meld:
+    state: present
+    remote: fedora
+  org.gnome.NautilusPreviewer:
+    state: present
+    remote: fedora
+  org.gnome.Screenshot:
+    state: present
+    remote: fedora
+  org.gnome.Weather:
+    state: present
+    remote: fedora
+
+rpm_ostree_base_packages:
+  firefox:
+    state: absent
+  gnome-software:
+    state: absent
+  gnome-software-rpm-ostree:
+    state: absent
+
+rpm_ostree_kargs:
+  'i915.enable_psr=0':
+    state: present
+  'rd.luks.options=discard':
+    state: absent
+
+rpm_ostree_layered_packages:
+  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm':
+    state: absent
+  atool:
+    state: present
+  bmon:
+    state: present
+  checksec:
+    state: present
+  docker-compose:
+    state: present
+  fd-find:
+    state: present
+  git:
+    state: present
+  gnome-tweaks:
+    state: present
+  htop:
+    state: present
+  iotop:
+    state: present
+  microdnf:
+    state: present
+  moby-engine:
+    state: present
+  mosh:
+    state: present
+  ncdu:
+    state: present
+  neovim:
+    state: present
+  net-tools:
+    state: present
+  nmap:
+    state: present
+  nmon:
+    state: present
+  ranger:
+    state: present
+  seahorse:
+    state: present
+  sshfs:
+    state: present
+  sshuttle:
+    state: present
+  stow:
+    state: present
+  strace:
+    state: present
+  virt-manager:
+    state: present
+  wl-clipboard:
+    state: present
+  youtube-dl:
+    state: present
+  zsh:
+    state: present
+
+etc_hostname: chapek9
+etc_users:
+  flexo:
+    shell: /bin/zsh
+
+etc_firewalld:
+  syncthing:
+    zone: FedoraWorkstation
+    state: enabled
+
+etc_sysctl_params:
+  kernel.unprivileged_bpf_disabled:
+    value: 1
+    state: present
+  fs.inotify.max_user_watches:
+    value: 524288
+    state: present
+
+home_users:
+  flexo:
+    dotfiles: git@git.spa5.dev:flexo/dotfiles
+    update: no

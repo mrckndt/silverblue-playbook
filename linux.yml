@@ -1,0 +1,8 @@
+---
+- name: "Silverblue"
+  hosts: "localhost"
+  connection: "local"
+  roles:
+    - flatpak
+    - rpm-ostree
+    - etc
