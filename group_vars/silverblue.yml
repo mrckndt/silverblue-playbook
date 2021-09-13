@@ -189,6 +189,8 @@ rpm_ostree_layered_packages:
     state: present
   htop:
     state: present
+  hyperfine:
+    state: present
   iotop:
     state: present
   microdnf:
