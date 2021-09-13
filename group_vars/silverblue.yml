@@ -89,9 +89,6 @@ flatpak_flatpaks:
   org.gnome.Extensions:
     state: present
     remote: flathub
-  org.gnome.Firmware:
-    state: present
-    remote: flathub
   org.gnome.Solanum:
     state: present
     remote: flathub

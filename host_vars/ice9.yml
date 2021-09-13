@@ -38,3 +38,11 @@ rpm_ostree_layered_packages_overwrite:
     state: present
   VirtualBox:
     state: present
+  flameshot:
+    state: absent
+  qemu-kvm:
+    state: absent
+  libvirt:
+    state: absent
+  virt-manager:
+    state: absent

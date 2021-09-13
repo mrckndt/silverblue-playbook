@@ -4,3 +4,8 @@ etc_hostname: chapek9
 rpm_ostree_kargs_overwrite:
   'i915.enable_psr=0':
     state: present
+
+flatpak_flatpaks_overwrite:
+  org.gnome.Firmware:
+    state: present
+    remote: flathub
