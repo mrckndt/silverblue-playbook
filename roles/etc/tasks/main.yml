@@ -6,6 +6,19 @@
   become: yes
   when: etc_set_hostname | bool
 
+- name: Configure fstab
+  ansible.posix.mount:
+    src: "{{ item.value.src }}"
+    path: "{{ item.value.path }}"
+    fstype: "{{ item.value.fstype }}"
+    opts: "{{ item.value.opts }}"
+    passno: "{{ item.value.passno }}"
+    dump: "{{ item.value.dump }}"
+    state: present
+  become: yes
+  loop: "{{ lookup('dict', etc_fstab_entries, wantlist=True) }}"
+  when: etc_configure_fstab | bool
+
 - name: Include users.yml
   ansible.builtin.include: users.yml
   when:  etc_update_users | bool
@@ -25,3 +38,7 @@
 - name: Include sysctl.yml
   ansible.builtin.include: sysctl.yml
   when: etc_configure_sysctl | bool
+
+- name: Include btrfs.yml
+  ansible.builtin.include: btrfs.yml
+  when: etc_configure_btrfs | bool

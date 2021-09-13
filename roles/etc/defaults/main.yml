@@ -5,8 +5,5 @@ etc_update_users: true
 etc_enable_NTS: true
 etc_configure_firewalld: true
 etc_configure_sysctl: true
-
-etc_sysctl_params:
-  kernel.unprivileged_bpf_disabled:
-    value: 1
-    state: present
+etc_configure_fstab: true
+etc_configure_btrfs: false
