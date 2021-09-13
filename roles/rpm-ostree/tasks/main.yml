@@ -32,7 +32,7 @@
   register: result
   become: yes
   changed_when: '"Kernel arguments updated" in result.stdout'
-  loop: "{{ lookup('dict', rpm_ostree_kargs) }}"
+  loop: "{{ lookup('dict', rpm_ostree_kargs, wantlist=True) }}"
   when:
     - item.value.state == 'present'
     - rpm_ostree_configure_kargs | bool
@@ -43,7 +43,7 @@
   register: result
   become: yes
   changed_when: '"Kernel arguments updated" in result.stdout'
-  loop: "{{ lookup('dict', rpm_ostree_kargs) }}"
+  loop: "{{ lookup('dict', rpm_ostree_kargs, wantlist=True) }}"
   when:
     - item.value.state == 'absent'
     - rpm_ostree_configure_kargs | bool
@@ -69,5 +69,6 @@
     name: "{{ item.key }}"
     state: "{{ item.value.state }}"
   become: yes
+  ignore_errors: yes
   loop: "{{ lookup('dict', rpm_ostree_layered_packages, wantlist=True) }}"
   when: rpm_ostree_alter_layered_packages | bool
