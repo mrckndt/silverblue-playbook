@@ -74,12 +74,12 @@ flatpak_flatpaks:
   org.chromium.Chromium.Codecs:
     state: present
     remote: flathub
-  org.freedesktop.Platform.ffmpeg-full: # needed for firefox
-    state: present
-    remote: flathub
-  org.freedesktop.Platform.openh264: # needed for firefox
-    state: present
-    remote: flathub
+  #org.freedesktop.Platform.ffmpeg-full:
+  #  state: present
+  #  remote: flathub
+  #org.freedesktop.Platform.openh264:
+  #  state: present
+  #  remote: flathub
   org.gimp.GIMP:
     state: present
     remote: flathub
@@ -95,9 +95,9 @@ flatpak_flatpaks:
   org.gnome.Solanum:
     state: present
     remote: flathub
-  org.gtk.Gtk3theme.Adwaita-dark:
-    state: present
-    remote: flathub
+  #org.gtk.Gtk3theme.Adwaita-dark:
+  #  state: present
+  #  remote: flathub
   org.mozilla.firefox:
     state: present
     remote: flathub
