@@ -6,6 +6,13 @@
   become: yes
   when: etc_set_hostname | bool
 
+- name: Merge fstab entries
+  set_fact:
+    etc_fstab_entries: '{{ etc_fstab_entries | combine(etc_fstab_entries_overwrite, recursive=True) }}'
+  when:
+    - etc_fstab_entries_overwrite | default()
+    - etc_configure_fstab | bool
+
 - name: Configure fstab
   ansible.posix.mount:
     src: "{{ item.value.src }}"
