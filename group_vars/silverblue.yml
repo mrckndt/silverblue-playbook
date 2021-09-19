@@ -188,6 +188,8 @@ rpm_ostree_layered_packages:
     state: absent
   git:
     state: present
+  gnome-shell-extension-appindicator:
+    state: absent
   gnome-tweaks:
     state: present
   htop:
