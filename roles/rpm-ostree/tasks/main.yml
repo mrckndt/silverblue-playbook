@@ -1,13 +1,19 @@
 ---
+- name: Create base package list
+  set_fact:
+    rpm_ostree_base_packages_list: "{{ rpm_ostree_base_packages_list + [item.key] }}"
+  loop: "{{ lookup('dict', rpm_ostree_base_packages, wantlist=True) }}"
+  when:
+    - item.value.state == 'absent'
+    - rpm_ostree_alter_base_packages | bool
+
 - name: Remove base packages
   ansible.builtin.shell:
-    cmd: rpm-ostree override remove "{{ item.key }}" || /bin/true
+    cmd: rpm-ostree override remove "{{ rpm_ostree_base_packages_list }}" || /bin/true
   register: result
   become: yes
   changed_when: '"Run \"systemctl reboot\" to start a reboot" in result.stdout'
-  loop: "{{ lookup('dict', rpm_ostree_base_packages) }}"
   when:
-    - item.value.state == 'absent'
     - rpm_ostree_alter_base_packages | bool
 
 - name: Reset base packages
@@ -64,11 +70,34 @@
     rpm_ostree_layered_packages: '{{ rpm_ostree_layered_packages | combine(rpm_ostree_layered_packages_overwrite) }}'
   when: rpm_ostree_layered_packages_overwrite | default()
 
-- name: Add/remove layered packages
+- name: Create layered package list for removal
+  set_fact:
+    rpm_ostree_layered_packages_removal_list: "{{ rpm_ostree_layered_packages_removal_list + [item.key] }}"
+  loop: "{{ lookup('dict', rpm_ostree_layered_packages, wantlist=True) }}"
+  when:
+    - item.value.state == 'absent'
+    - rpm_ostree_alter_layered_packages | bool
+
+- name: Remove layered packages
   community.general.rpm_ostree_pkg:
-    name: "{{ item.key }}"
-    state: "{{ item.value.state }}"
+    name: "{{ rpm_ostree_layered_packages_removal_list }}"
+    state: "absent"
   become: yes
   ignore_errors: yes
+  when: rpm_ostree_alter_layered_packages | bool
+
+- name: Create layered package list for installation
+  set_fact:
+    rpm_ostree_layered_packages_install_list: "{{ rpm_ostree_layered_packages_install_list + [item.key] }}"
   loop: "{{ lookup('dict', rpm_ostree_layered_packages, wantlist=True) }}"
+  when:
+    - item.value.state == 'present'
+    - rpm_ostree_alter_layered_packages | bool
+
+- name: Install layered packages
+  community.general.rpm_ostree_pkg:
+    name: "{{ rpm_ostree_layered_packages_install_list }}"
+    state: "present"
+  become: yes
+  ignore_errors: yes
   when: rpm_ostree_alter_layered_packages | bool

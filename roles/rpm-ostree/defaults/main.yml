@@ -1,4 +1,8 @@
 ---
+rpm_ostree_base_packages_list: []  # don't delete this
+rpm_ostree_layered_packages_removal_list: []  # don't delete this
+rpm_ostree_layered_packages_install_list: []  # don't delete this
+
 rpm_ostree_alter_base_packages: true
 rpm_ostree_alter_layered_packages: true
 rpm_ostree_configure_kargs: true
