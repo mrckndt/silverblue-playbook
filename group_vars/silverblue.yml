@@ -26,6 +26,9 @@ flatpak_flatpaks:
   com.discordapp.Discord:
     state: present
     remote: flathub
+  com.github.gi_lom.dialect:
+    state: present
+    remote: flathub
   com.github.johnfactotum.Foliate:
     state: present
     remote: flathub
@@ -71,9 +74,9 @@ flatpak_flatpaks:
   org.chromium.Chromium:
     state: present
     remote: flathub
-  org.chromium.Chromium.Codecs:
-    state: present
-    remote: flathub
+  #org.chromium.Chromium.Codecs:
+  #  state: present
+  #  remote: flathub
   #org.freedesktop.Platform.ffmpeg-full:
   #  state: present
   #  remote: flathub
@@ -163,9 +166,9 @@ flatpak_flatpaks:
 rpm_ostree_base_packages:
   firefox:
     state: absent
-  gnome-software:
-    state: absent
   gnome-software-rpm-ostree:
+    state: absent
+  gnome-software:
     state: absent
 
 rpm_ostree_kargs:
@@ -182,7 +185,7 @@ rpm_ostree_layered_packages:
   docker-compose:
     state: present
   fd-find:
-    state: present
+    state: absent
   git:
     state: present
   gnome-tweaks:
@@ -190,7 +193,7 @@ rpm_ostree_layered_packages:
   htop:
     state: present
   hyperfine:
-    state: present
+    state: absent
   iotop:
     state: present
   microdnf:
@@ -198,7 +201,7 @@ rpm_ostree_layered_packages:
   moby-engine:
     state: present
   mosh:
-    state: present
+    state: absend
   ncdu:
     state: present
   neovim:
