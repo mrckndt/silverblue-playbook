@@ -1,19 +1,30 @@
 ---
-- name: Create base package list
-  set_fact:
-    rpm_ostree_base_packages_list: "{{ rpm_ostree_base_packages_list + [item.key] }}"
-  loop: "{{ lookup('dict', rpm_ostree_base_packages, wantlist=True) }}"
-  when:
-    - item.value.state == 'absent'
-    - rpm_ostree_alter_base_packages | bool
+#- name: Create base package list
+#  set_fact:
+#    rpm_ostree_base_packages_list: "{{ rpm_ostree_base_packages_list + [item.key] }}"
+#  loop: "{{ lookup('dict', rpm_ostree_base_packages, wantlist=True) }}"
+#  when:
+#    - item.value.state == 'absent'
+#    - rpm_ostree_alter_base_packages | bool
+#
+#- name: Remove base packages
+#  ansible.builtin.shell:
+#    cmd: rpm-ostree override remove "{{ rpm_ostree_base_packages_list }}" || /bin/true
+#  register: result
+#  become: yes
+#  changed_when: '"Run \"systemctl reboot\" to start a reboot" in result.stdout'
+#  when:
+#    - rpm_ostree_alter_base_packages | bool
 
 - name: Remove base packages
   ansible.builtin.shell:
-    cmd: rpm-ostree override remove "{{ rpm_ostree_base_packages_list }}" || /bin/true
+    cmd: rpm-ostree override remove "{{ item.key }}" || /bin/true
   register: result
   become: yes
   changed_when: '"Run \"systemctl reboot\" to start a reboot" in result.stdout'
+  loop: "{{ lookup('dict', rpm_ostree_base_packages, wantlist=True) }}"
   when:
+    - item.value.state == 'absent'
     - rpm_ostree_alter_base_packages | bool
 
 - name: Reset base packages
