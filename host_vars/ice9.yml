@@ -14,9 +14,9 @@ flatpak_flatpaks_overwrite:
   com.snes9x.Snes9x:
     state: present
     remote: flathub
-  com.valvesoftware.Steam.CompatibilityTool.Proton:
-    state: present
-    remote: flathub
+#  com.valvesoftware.Steam.CompatibilityTool.Proton:
+#    state: present
+#    remote: flathub
   io.github.gitahead.GitAhead:
     state: absent
     remote: flathub
@@ -40,9 +40,7 @@ flatpak_flatpaks_overwrite:
     remote: flathub
 
 rpm_ostree_layered_packages_overwrite:
-  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
-    state: present
-  VirtualBox:
-    state: present
-  virt-manager:
-    state: present
+#  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
+#    state: present
+#  VirtualBox:
+#    state: present
