@@ -3,6 +3,7 @@ etc_set_hostname: true
 etc_enable_BLSCFG: true
 etc_update_users: true
 etc_enable_NTS: true
+etc_enable_fwupd_refresh: true
 etc_configure_firewalld: true
 etc_configure_sysctl: true
 etc_configure_fstab: true

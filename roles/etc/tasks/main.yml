@@ -6,7 +6,13 @@
   become: yes
   when: etc_set_hostname | bool
 
+- name: Enable fwupd-refresh timer
+  ansible.builtin.systemd:
+    name: fwupd-refresh.timer
+    state: started
+    enabled: yes
   become: yes
+  when: etc_enable_fwupd_refresh | bool
 
 - name: Include users.yml
   ansible.builtin.include: users.yml
