@@ -6,25 +6,7 @@
   become: yes
   when: etc_set_hostname | bool
 
-- name: Merge fstab entries
-  set_fact:
-    etc_fstab_entries: '{{ etc_fstab_entries | combine(etc_fstab_entries_overwrite, recursive=True) }}'
-  when:
-    - etc_fstab_entries_overwrite | default()
-    - etc_configure_fstab | bool
-
-- name: Configure fstab
-  ansible.posix.mount:
-    src: "{{ item.value.src }}"
-    path: "{{ item.value.path }}"
-    fstype: "{{ item.value.fstype }}"
-    opts: "{{ item.value.opts }}"
-    passno: "{{ item.value.passno }}"
-    dump: "{{ item.value.dump }}"
-    state: present
   become: yes
-  loop: "{{ lookup('dict', etc_fstab_entries, wantlist=True) }}"
-  when: etc_configure_fstab | bool
 
 - name: Include users.yml
   ansible.builtin.include: users.yml
@@ -49,3 +31,6 @@
 - name: Include btrfs.yml
   ansible.builtin.include: btrfs.yml
   when: etc_configure_btrfs | bool
+- name: Include fstab.yml
+  ansible.builtin.include: fstab.yml
+  when: etc_configure_fstab | bool
