@@ -1,0 +1,13 @@
+---
+- name: Merge Flatpak remotes and overwrites
+  set_fact:
+    flatpak_remotes: '{{ flatpak_remotes | combine(flatpak_remotes_overwrite) }}'
+  when: flatpak_remotes_overwrite | default()
+
+- name: Add/remove Flatpak remotes
+  community.general.flatpak_remote:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    flatpakrepo_url: "{{ item.value.url }}"
+  become: true
+  loop: "{{ lookup('dict', flatpak_remotes, wantlist=True) }}"

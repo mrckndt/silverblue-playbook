@@ -1,0 +1,12 @@
+---
+- name: Merge Flatpaks and overwrites
+  set_fact:
+    flatpak_flatpaks: '{{ flatpak_flatpaks | combine(flatpak_flatpaks_overwrite) }}'
+  when: flatpak_flatpaks_overwrite | default()
+
+- name: Add/remove Flatpaks
+  community.general.flatpak:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    remote: "{{ item.value.remote }}"
+  loop: "{{ lookup('dict', flatpak_flatpaks, wantlist=True) }}"

@@ -1,27 +1,23 @@
 ---
-- name: Merge Flatpak remotes and overwrites
-  set_fact:
-    flatpak_remotes: '{{ flatpak_remotes | combine(flatpak_remotes_overwrite) }}'
-  when: flatpak_remotes_overwrite | default()
-
-- name: Add/remove Flatpak remotes
-  community.general.flatpak_remote:
-    name: "{{ item.key }}"
-    state: "{{ item.value.state }}"
-    flatpakrepo_url: "{{ item.value.url }}"
-  become: true
-  loop: "{{ lookup('dict', flatpak_remotes, wantlist=True) }}"
+- name: Include remotes.yml
+  ansible.builtin.include: remotes.yml
   when: flatpak_configure_remotes | bool
 
-- name: Merge Flatpaks and overwrites
-  set_fact:
-    flatpak_flatpaks: '{{ flatpak_flatpaks | combine(flatpak_flatpaks_overwrite) }}'
-  when: flatpak_flatpaks_overwrite | default()
-
-- name: Add/remove Flatpaks
-  community.general.flatpak:
-    name: "{{ item.key }}"
-    state: "{{ item.value.state }}"
-    remote: "{{ item.value.remote }}"
-  loop: "{{ lookup('dict', flatpak_flatpaks, wantlist=True) }}"
+- name: Include flatpaks.yml
+  ansible.builtin.include: flatpaks.yml
   when: flatpak_alter_flatpaks | bool
+
+- name: Enable flatpak Automatic Update
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  with_items:
+    - flatpak-automatic.service
+    - flatpak-automatic.timer
+  notify:
+    - Enable flatpak-automatic
+  when: flatpak_automatic_updates | bool

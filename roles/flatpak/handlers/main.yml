@@ -1,0 +1,8 @@
+---
+- name: Enable flatpak-automatic
+  ansible.builtin.systemd:
+    name: flatpak-automatic.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: yes
