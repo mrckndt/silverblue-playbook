@@ -4,5 +4,5 @@ Documentation=man:flatpak(1)
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sh -c 'until ping -c1 google.com; do sleep 1; done;'
+ExecStartPre=/bin/sh -c 'until ping -c1 google.com; do sleep 5; done;'
 ExecStart=/usr/bin/flatpak update -y
