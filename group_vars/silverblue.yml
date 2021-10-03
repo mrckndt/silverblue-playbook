@@ -263,12 +263,3 @@ etc_fstab_entries:
     opts: subvol=home,compress=zstd:1,x-systemd.device-timeout=0
     passno: 0
     dump: 0
-
-users:
-  flexo:
-    shell: /bin/zsh
-    dotfiles: git@git.spa5.dev:flexo/dotfiles
-
-home_gnome_shell_extensions:
-  'https://github.com/ubuntu/gnome-shell-extension-appindicator':
-    extension_uuid: 'appindicatorsupport@rgcjonas.gmail.com'
