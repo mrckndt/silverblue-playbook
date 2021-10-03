@@ -56,6 +56,9 @@ flatpak_flatpaks:
   com.valvesoftware.Steam:
     state: present
     remote: flathub
+  com.visualstudio.code:
+    state: present
+    remote: flathub
   com.vscodium.codium:
     state: present
     remote: flathub
@@ -161,21 +164,23 @@ flatpak_flatpaks:
     remote: fedora
   org.gnome.Weather:
     state: present
-    remote: fedora
+    remote: flathub
 
 rpm_ostree_base_packages:
   firefox:
     state: absent
   gnome-software-rpm-ostree:
-    state: absent
+    state: present
   gnome-software:
-    state: absent
+    state: present
 
 rpm_ostree_kargs:
   'rd.luks.options=discard':
     state: absent
 
 rpm_ostree_layered_packages:
+  ansible:
+    state: present
   atool:
     state: present
   bmon:
@@ -183,7 +188,7 @@ rpm_ostree_layered_packages:
   checksec:
     state: absent
   compsize:
-    state: present
+    state: absent
   docker-compose:
     state: present
   fd-find:
@@ -228,12 +233,16 @@ rpm_ostree_layered_packages:
     state: present
   strace:
     state: present
+  syncthing:
+    state: present
   virt-manager:
+    state: present
+  libvirt-client:
     state: present
   wl-clipboard:
     state: present
   youtube-dl:
-    state: absent
+    state: present
   zsh:
     state: present
 
