@@ -1,4 +1,4 @@
 ---
 flatpak_configure_remotes: true
 flatpak_alter_flatpaks: true
-flatpak_automatic_updates: true
+flatpak_automatic_updates: false

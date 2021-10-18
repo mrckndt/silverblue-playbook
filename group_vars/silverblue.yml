@@ -1,10 +1,10 @@
----
+
 flatpak_remotes:
   flathub:
     state: present
     url: https://flathub.org/repo/flathub.flatpakrepo
   flathub-beta:
-    state: present
+    state: absent
     url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
   fedora:
     state: present
@@ -45,10 +45,10 @@ flatpak_flatpaks:
     state: present
     remote: flathub
   com.google.Chrome:
-    state: present
+    state: absent
     remote: flathub-beta
   com.jetbrains.IntelliJ-IDEA-Community:
-    state: present
+    state: absent
     remote: flathub
   com.spotify.Client:
     state: present
@@ -60,7 +60,7 @@ flatpak_flatpaks:
     state: present
     remote: flathub
   com.vscodium.codium:
-    state: present
+    state: absent
     remote: flathub
   com.yubico.yubioath:
     state: present
@@ -105,7 +105,7 @@ flatpak_flatpaks:
     state: present
     remote: flathub
   org.remmina.Remmina:
-    state: present
+    state: absent
     remote: flathub
   org.signal.Signal:
     state: present
@@ -127,6 +127,9 @@ flatpak_flatpaks:
     state: present
     remote: fedora
   org.gnome.Contacts:
+    state: present
+    remote: fedora
+  org.gnome.Connections:
     state: present
     remote: fedora
   org.gnome.eog:
@@ -153,6 +156,9 @@ flatpak_flatpaks:
   org.gnome.Maps:
     state: present
     remote: fedora
+  org.fedoraproject.MediaWriter:
+    state: absent
+    remote: fedora
   org.gnome.Meld:
     state: present
     remote: fedora
@@ -164,7 +170,7 @@ flatpak_flatpaks:
     remote: fedora
   org.gnome.Weather:
     state: present
-    remote: flathub
+    remote: fedora
 
 rpm_ostree_base_packages:
   firefox:
@@ -176,7 +182,7 @@ rpm_ostree_base_packages:
 
 rpm_ostree_kargs:
   'rd.luks.options=discard':
-    state: absent
+    state: present
 
 rpm_ostree_layered_packages:
   ansible:
@@ -233,16 +239,14 @@ rpm_ostree_layered_packages:
     state: present
   strace:
     state: present
-  syncthing:
-    state: present
   virt-manager:
-    state: present
+    state: absent
   libvirt-client:
-    state: present
+    state: absent
   wl-clipboard:
     state: present
   youtube-dl:
-    state: present
+    state: absent
   zsh:
     state: present
 
@@ -272,3 +276,7 @@ etc_fstab_entries:
     opts: subvol=home,compress=zstd:1,x-systemd.device-timeout=0
     passno: 0
     dump: 0
+
+users:
+  flexo:
+    shell: /bin/zsh
