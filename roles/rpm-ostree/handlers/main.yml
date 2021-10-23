@@ -3,7 +3,7 @@
   ansible.builtin.command:
     cmd: rpm-ostree reload
   become: yes
-  
+
 - name: Enable rpm-ostree-automatic
   ansible.builtin.systemd:
     name: rpm-ostreed-automatic.timer

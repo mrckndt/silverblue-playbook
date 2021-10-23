@@ -112,3 +112,9 @@
   become: yes
   ignore_errors: yes
   when: rpm_ostree_alter_layered_packages | bool
+
+- name: Apply-live
+  ansible.builtin.command:
+    cmd: rpm-ostree ex apply-live
+  become: yes
+  when: rpm_ostree_apply_live | bool
