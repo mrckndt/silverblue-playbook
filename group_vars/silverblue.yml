@@ -4,7 +4,7 @@ flatpak_remotes:
     state: present
     url: https://flathub.org/repo/flathub.flatpakrepo
   flathub-beta:
-    state: absent
+    state: present
     url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
   fedora:
     state: present
@@ -44,8 +44,11 @@ flatpak_flatpaks:
   com.github.tchx84.Flatseal:
     state: present
     remote: flathub
+  com.github.unrud.VideoDownloader:
+    state: present
+    remote: flathub
   com.google.Chrome:
-    state: absent
+    state: present
     remote: flathub-beta
   com.jetbrains.IntelliJ-IDEA-Community:
     state: absent
@@ -240,7 +243,7 @@ rpm_ostree_layered_packages:
   strace:
     state: present
   virt-manager:
-    state: absent
+    state: present
   libvirt-client:
     state: absent
   wl-clipboard:
