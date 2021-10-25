@@ -1,0 +1,13 @@
+---
+etc_hostname: vinci
+
+etc_fstab_entries_overwrite:
+  root:
+    src: UUID=f1b9b845-5f3c-4912-b729-b6e8605f0def
+  home:
+    src: UUID=f1b9b845-5f3c-4912-b729-b6e8605f0def
+
+flatpak_flatpaks_overwrite:
+  org.gnome.Firmware:
+    state: present
+    remote: flathub
