@@ -199,7 +199,7 @@ rpm_ostree_layered_packages:
   compsize:
     state: absent
   docker-compose:
-    state: present
+    state: absent
   fd-find:
     state: absent
   git:
@@ -217,7 +217,7 @@ rpm_ostree_layered_packages:
   microdnf:
     state: present
   moby-engine:
-    state: present
+    state: absent
   mosh:
     state: absent
   ncdu:
