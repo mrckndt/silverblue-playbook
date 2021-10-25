@@ -179,9 +179,9 @@ rpm_ostree_base_packages:
   firefox:
     state: absent
   gnome-software-rpm-ostree:
-    state: present
+    state: absent
   gnome-software:
-    state: present
+    state: absent
 
 rpm_ostree_kargs:
   'rd.luks.options=discard':
@@ -244,8 +244,8 @@ rpm_ostree_layered_packages:
     state: present
   virt-manager:
     state: present
-  libvirt-client:
-    state: absent
+  #libvirt-client:
+  #  state: absent
   wl-clipboard:
     state: present
   youtube-dl:
