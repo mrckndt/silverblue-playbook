@@ -10,3 +10,5 @@
     state: "{{ item.value.state }}"
     remote: "{{ item.value.remote }}"
   loop: "{{ lookup('dict', flatpak_flatpaks, wantlist=True) }}"
+  notify:
+    - Update Flatpaks
