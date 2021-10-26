@@ -6,3 +6,8 @@
     enabled: yes
     daemon_reload: yes
   become: yes
+
+- name: Update Flatpaks
+  ansible.builtin.command:
+    cmd: flatpak update -y
+  become: yes
