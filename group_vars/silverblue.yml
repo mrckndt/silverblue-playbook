@@ -199,7 +199,7 @@ rpm_ostree_layered_packages:
   compsize:
     state: absent
   docker-compose:
-    state: absent
+    state: present
   fd-find:
     state: absent
   git:
@@ -217,7 +217,7 @@ rpm_ostree_layered_packages:
   microdnf:
     state: present
   moby-engine:
-    state: absent
+    state: present
   mosh:
     state: absent
   ncdu:
@@ -273,12 +273,21 @@ etc_fstab_entries:
     opts: noatime,subvol=root,compress=zstd:1,x-systemd.device-timeout=0
     passno: 0
     dump: 0
+    state: present
   home:
     path: /home
     fstype: btrfs
     opts: subvol=home,compress=zstd:1,x-systemd.device-timeout=0
     passno: 0
     dump: 0
+    state: present
+  docker:
+    path: /var/lib/docker
+    fstype: btrfs
+    opts: subvol=docker,compress=zstd:1,x-systemd.device-timeout=0
+    passno: 0
+    dump: 0
+    state: mounted
 
 users:
   flexo:

@@ -6,6 +6,8 @@ etc_fstab_entries_overwrite:
     src: UUID=aa63fb86-3fc9-42d1-82ca-7d47d0238765
   home:
     src: UUID=aa63fb86-3fc9-42d1-82ca-7d47d0238765
+  docker:
+    src: UUID=aa63fb86-3fc9-42d1-82ca-7d47d0238765
 
 flatpak_flatpaks_overwrite:
   com.github.Bleuzen.FFaudioConverter:

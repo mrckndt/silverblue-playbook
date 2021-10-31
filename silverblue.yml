@@ -5,5 +5,5 @@
   connection: "local"
   roles:
     - flatpak
-    - rpm-ostree
     - etc
+    - rpm-ostree

@@ -6,6 +6,8 @@ etc_fstab_entries_overwrite:
     src: UUID=254d6a53-398a-4a53-93d1-c45e61263791
   home:
     src: UUID=254d6a53-398a-4a53-93d1-c45e61263791
+  docker:
+    src: UUID=254d6a53-398a-4a53-93d1-c45e61263791
 
 rpm_ostree_kargs_overwrite:
   'i915.enable_psr=0':
