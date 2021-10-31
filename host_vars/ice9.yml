@@ -42,7 +42,9 @@ flatpak_flatpaks_overwrite:
     remote: flathub
 
 rpm_ostree_layered_packages_overwrite:
-#  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
-#    state: present
-#  VirtualBox:
-#    state: present
+  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
+    state: present
+  VirtualBox:
+    state: absent
+  radeontop:
+    state: present

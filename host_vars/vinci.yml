@@ -13,3 +13,14 @@ flatpak_flatpaks_overwrite:
   org.gnome.Firmware:
     state: present
     remote: flathub
+  com.mattermost.Desktop:
+    state: present
+    remote: flathub
+
+rpm_ostree_layered_packages_overwrite:
+  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
+    state: present
+  radeontop:
+    state: present
+  VirtualBox:
+    state: absent
