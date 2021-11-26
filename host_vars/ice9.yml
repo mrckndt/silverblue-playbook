@@ -19,22 +19,13 @@ flatpak_flatpaks_overwrite:
 #  com.valvesoftware.Steam.CompatibilityTool.Proton:
 #    state: present
 #    remote: flathub
-  io.github.gitahead.GitAhead:
-    state: absent
-    remote: flathub
   io.mgba.mGBA:
     state: present
     remote: flathub
   io.openrct2.OpenRCT2:
     state: present
     remote: flathub
-  org.gnome.gitg:
-    state: absent
-    remote: flathub
   org.kde.kid3:
-    state: present
-    remote: flathub
-  org.libreoffice.LibreOffice:
     state: present
     remote: flathub
   org.musicbrainz.Picard:
@@ -42,9 +33,5 @@ flatpak_flatpaks_overwrite:
     remote: flathub
 
 rpm_ostree_layered_packages_overwrite:
-  'https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-34.noarch.rpm':
-    state: present
-  VirtualBox:
-    state: absent
   radeontop:
     state: present

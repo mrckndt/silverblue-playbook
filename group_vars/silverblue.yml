@@ -15,7 +15,7 @@ flatpak_flatpaks:
     state: present
     remote: flathub
   com.bitstower.Markets:
-    state: present
+    state: absent
     remote: flathub
   com.bitwarden.desktop:
     state: present
@@ -27,7 +27,7 @@ flatpak_flatpaks:
     state: present
     remote: flathub
   com.github.gi_lom.dialect:
-    state: present
+    state: absent
     remote: flathub
   com.github.johnfactotum.Foliate:
     state: present
@@ -77,6 +77,9 @@ flatpak_flatpaks:
   io.github.celluloid_player.Celluloid:
     state: present
     remote: flathub
+  io.github.seadve.Kooha:
+    state: present
+    remote: flathub
   org.chromium.Chromium:
     state: present
     remote: flathub
@@ -92,15 +95,18 @@ flatpak_flatpaks:
   org.gimp.GIMP:
     state: present
     remote: flathub
+  org.gnome.gitg:
+    state: absent
+    remote: flathub
   org.gnome.Extensions:
     state: present
     remote: flathub
   org.gnome.Solanum:
     state: present
     remote: flathub
-  #org.gtk.Gtk3theme.Adwaita-dark:
-  #  state: present
-  #  remote: flathub
+  org.libreoffice.LibreOffice:
+    state: present
+    remote: flathub
   org.mozilla.firefox:
     state: present
     remote: flathub
@@ -242,10 +248,12 @@ rpm_ostree_layered_packages:
     state: present
   strace:
     state: present
+  tmux:
+    state: present
   virt-manager:
     state: present
-  #libvirt-client:
-  #  state: absent
+  libvirt-client:
+    state: present
   wl-clipboard:
     state: present
   youtube-dl:
