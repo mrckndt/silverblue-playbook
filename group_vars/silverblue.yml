@@ -203,11 +203,11 @@ rpm_ostree_layered_packages:
   checksec:
     state: absent
   compsize:
-    state: absent
+    state: present
   docker-compose:
     state: present
   fd-find:
-    state: absent
+    state: present
   git:
     state: present
   gnome-shell-extension-appindicator:
@@ -217,7 +217,7 @@ rpm_ostree_layered_packages:
   htop:
     state: present
   hyperfine:
-    state: absent
+    state: present
   iotop:
     state: present
   microdnf:
@@ -235,8 +235,10 @@ rpm_ostree_layered_packages:
   nmap:
     state: present
   nmon:
-    state: absent
+    state: present
   ranger:
+    state: present
+  ripgrep:
     state: present
   seahorse:
     state: present
