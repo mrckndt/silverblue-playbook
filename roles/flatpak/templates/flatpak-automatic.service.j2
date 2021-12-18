@@ -1,0 +1,10 @@
+[Unit]
+Description=flatpak Automatic Update
+Documentation=man:flatpak(1)
+
+[Service]
+Environment='DISPLAY={{ ansible_facts["env"]["DISPLAY"] }}'
+Environment='DBUS_SESSION_BUS_ADDRESS={{ ansible_facts["env"]["DBUS_SESSION_BUS_ADDRESS"] }}'
+Type=simple
+ExecStartPre=nm-online
+ExecStart=/usr/bin/flatpak update -y
