@@ -9,16 +9,52 @@
 
 # https://github.com/flatpak/flatpak/issues/3847#issuecomment-818532856
 - name: Enable flatpak Automatic Update
-  ansible.builtin.template:
-    src: "{{ item }}"
-    dest: "/etc/systemd/system/{{ item | regex_replace('.j2', '') }}"
-    owner: root
-    group: root
-    mode: '0644'
-  become: yes
-  with_items:
-    - flatpak-automatic.service.j2
-    - flatpak-automatic.timer.j2
-  notify:
-    - Enable flatpak-automatic
-  when: flatpak_automatic_updates | bool
+  block:
+    - name: Place systemd service and timer
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "/etc/systemd/system/{{ item | regex_replace('.j2', '') }}"
+        owner: root
+        group: root
+        mode: '0644'
+      become: yes
+      with_items:
+        - flatpak-automatic.service.j2
+        - flatpak-automatic.timer.j2
+      notify:
+        - Enable flatpak-automatic
+      when: flatpak_automatic_updates | bool
+
+    - name: Enable systemd timer
+      ansible.builtin.systemd:
+        name: flatpak-automatic.timer
+        state: started
+        enabled: yes
+        daemon_reload: yes
+      become: yes
+      when: flatpak_automatic_updates | bool
+
+    - name: Update Flatpaks
+      ansible.builtin.command:
+        cmd: flatpak update -y
+      when: flatpak_automatic_updates | bool
+
+- name: Disable flatpak Automatic Update
+  block:
+    - name: Disable systemd timer
+      ansible.builtin.systemd:
+        name: flatpak-automatic.timer
+        state: stopped
+        enabled: no
+      become: yes
+      when: not flatpak_automatic_updates | bool
+
+    - name: Remove systemd service and timer
+      ansible.builtin.file:
+        path: "/etc/systemd/system/{{ item }}"
+        state: absent
+      become: yes
+      with_items:
+        - flatpak-automatic.service
+        - flatpak-automatic.timer
+      when: not flatpak_automatic_updates | bool
