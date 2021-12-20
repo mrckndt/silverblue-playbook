@@ -21,8 +21,6 @@
       with_items:
         - flatpak-automatic.service.j2
         - flatpak-automatic.timer.j2
-      notify:
-        - Enable flatpak-automatic
       when: flatpak_automatic_updates | bool
 
     - name: Enable systemd timer
