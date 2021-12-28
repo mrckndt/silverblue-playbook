@@ -150,6 +150,9 @@ flatpak_flatpaks:
   org.gnome.FileRoller:
     state: present
     remote: fedora
+  org.gnome.Firmware:
+    state: present
+    remote: flathub
   org.gnome.font-viewer:
     state: present
     remote: fedora
@@ -191,7 +194,7 @@ rpm_ostree_base_packages:
 
 rpm_ostree_kargs:
   'rd.luks.options=discard':
-    state: present
+    state: absent
 
 rpm_ostree_layered_packages:
   ansible:
@@ -202,8 +205,6 @@ rpm_ostree_layered_packages:
     state: present
   checksec:
     state: absent
-  compsize:
-    state: present
   docker-compose:
     state: present
   fd-find:
@@ -235,6 +236,8 @@ rpm_ostree_layered_packages:
   nmap:
     state: present
   nmon:
+    state: present
+  p7zip-plugins:
     state: present
   ranger:
     state: present

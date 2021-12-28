@@ -25,6 +25,9 @@ flatpak_flatpaks_overwrite:
   io.openrct2.OpenRCT2:
     state: present
     remote: flathub
+  org.gnome.Firmware:
+    state: absent
+    remote: flathub
   org.kde.kid3:
     state: present
     remote: flathub

@@ -14,8 +14,3 @@ rpm_ostree_kargs_overwrite:
     state: present
   'mem_sleep_default=deep':
     state: present
-
-flatpak_flatpaks_overwrite:
-  org.gnome.Firmware:
-    state: present
-    remote: flathub
