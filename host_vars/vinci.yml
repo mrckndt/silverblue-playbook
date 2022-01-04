@@ -33,5 +33,7 @@ flatpak_flatpaks_overwrite:
     remote: flathub
 
 rpm_ostree_layered_packages_overwrite:
-  radeontop:
-    state: absent
+  iftop:
+    state: present
+  nethogs:
+    state: present

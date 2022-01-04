@@ -1,4 +1,3 @@
-
 flatpak_remotes:
   flathub:
     state: present
@@ -95,11 +94,14 @@ flatpak_flatpaks:
   org.gimp.GIMP:
     state: present
     remote: flathub
-  org.gnome.gitg:
-    state: absent
-    remote: flathub
   org.gnome.Extensions:
     state: present
+    remote: flathub
+  org.gnome.Firmware:
+    state: present
+    remote: flathub
+  org.gnome.gitg:
+    state: absent
     remote: flathub
   org.gnome.Solanum:
     state: present
@@ -150,9 +152,6 @@ flatpak_flatpaks:
   org.gnome.FileRoller:
     state: present
     remote: fedora
-  org.gnome.Firmware:
-    state: present
-    remote: flathub
   org.gnome.font-viewer:
     state: present
     remote: fedora
@@ -218,7 +217,7 @@ rpm_ostree_layered_packages:
   htop:
     state: present
   hyperfine:
-    state: present
+    state: absent
   iotop:
     state: present
   microdnf:
@@ -236,7 +235,7 @@ rpm_ostree_layered_packages:
   nmap:
     state: present
   nmon:
-    state: present
+    state: absent
   p7zip-plugins:
     state: present
   ranger:
