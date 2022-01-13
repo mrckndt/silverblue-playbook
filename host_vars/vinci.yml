@@ -37,3 +37,11 @@ rpm_ostree_layered_packages_overwrite:
     state: present
   nethogs:
     state: present
+
+rpm_ostree_kargs_overwrite:
+  'i915.enable_psr=0':
+    state: absent
+  'mem_sleep_default=deep':
+    state: present
+  'snd-hda-intel.model=dell-headset-multi':
+    state: present
