@@ -13,11 +13,14 @@ flatpak_flatpaks_overwrite:
   com.discordapp.Discord:
     state: absent
     remote: flathub
+  com.github.alecaddd.sequeler:
+    state: present
+    remote: flathub
   com.mattermost.Desktop:
     state: present
     remote: flathub
   com.valvesoftware.Steam:
-    state: present
+    state: absent
     remote: flathub
   im.riot.Riot:
     state: absent
@@ -29,6 +32,9 @@ flatpak_flatpaks_overwrite:
     state: absent
     remote: fedora
   org.gnome.Firmware:
+    state: present
+    remote: flathub
+  us.zoom.Zoom:
     state: present
     remote: flathub
 
