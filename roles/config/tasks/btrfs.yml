@@ -1,0 +1,7 @@
+---
+- name: "btrfs: Install btrfsmaintenance"
+  community.general.rpm_ostree_pkg:
+    name: btrfsmaintenance
+    state: "present"
+  become: yes
+  when: config_btrfsmaintenance_enable | bool

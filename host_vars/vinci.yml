@@ -1,7 +1,7 @@
 ---
-etc_hostname: vinci
+config_hostname: vinci
 
-etc_fstab_entries_overwrite:
+config_fstab_entries_overrides:
   root:
     src: UUID=9296ebbe-a288-48e4-a9cd-0a80374c7c46
   home:
@@ -9,7 +9,7 @@ etc_fstab_entries_overwrite:
   docker:
     src: UUID=9296ebbe-a288-48e4-a9cd-0a80374c7c46
 
-flatpak_flatpaks_overwrite:
+services_flatpak_packages_overrides:
   com.discordapp.Discord:
     state: absent
     remote: flathub
@@ -38,13 +38,13 @@ flatpak_flatpaks_overwrite:
     state: present
     remote: flathub
 
-rpm_ostree_layered_packages_overwrite:
+rpm_ostree_layeredPackages_overrides:
   iftop:
     state: present
   nethogs:
     state: present
 
-rpm_ostree_kargs_overwrite:
+rpm_ostree_kargs_overrides:
   'i915.enable_psr=0':
     state: absent
   'mem_sleep_default=deep':

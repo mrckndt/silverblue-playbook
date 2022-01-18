@@ -1,17 +1,13 @@
 ---
-- name: Reload rpm-ostree configuration
+- name: "rpm-ostree: Reload rpm-ostree configuration"
   ansible.builtin.command:
     cmd: rpm-ostree reload
   become: yes
 
-- name: Enable rpm-ostree-automatic
+- name: "rpm-ostree: Enable timer"
   ansible.builtin.systemd:
     name: rpm-ostreed-automatic.timer
     state: started
     enabled: yes
-  become: yes
-
-- name: Reload systemd units
-  ansible.builtin.systemd:
     daemon_reload: yes
   become: yes

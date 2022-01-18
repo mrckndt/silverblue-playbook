@@ -1,15 +1,15 @@
 ---
-- name: Configure fstab
+- name: "fstab: Configure mountpoints"
   block:
-    - name: Merge variables
+    - name: "fstab: Merge variables"
       set_fact:
-        etc_fstab_entries: '{{ etc_fstab_entries | combine(etc_fstab_entries_overwrite, recursive=True) }}'
+        config_fstab_entries: '{{ config_fstab_entries | combine(config_fstab_entries_overrides, recursive=True) }}'
       when:
-        - etc_fstab_entries_overwrite | default()
+        - config_fstab_entries_overrides | default()
 
     #- name: Mount btrfs root
     #  ansible.posix.mount:
-    #    src: "'/dev/mapper/luks-' + {{ etc_fstab_btrfs_root }}"
+    #    src: "'/dev/mapper/luks-' + {{ config_fstab_btrfs_root }}"
     #    path: "/mnt"
     #  become: yes
 
@@ -19,11 +19,11 @@
     #    #cmd: "btrfs subvolume create {{ item }}"
     #    msg: "{{ item }}"
     #  become: yes
-    #  loop: "{{ lookup('dict', etc_fstab_entries, wantlist=True) }}"
+    #  loop: "{{ lookup('dict', config_fstab_entries, wantlist=True) }}"
     #  when:
     #    "item.value.path != '/' and item.value.path != '/home'"
 
-    - name: Write fstab entries
+    - name: "fstab: Write entries"
       ansible.posix.mount:
         src: "{{ item.value.src }}"
         path: "{{ item.value.path }}"
@@ -33,4 +33,4 @@
         dump: "{{ item.value.dump }}"
         state: "{{ item.value.state }}"
       become: yes
-      loop: "{{ lookup('dict', etc_fstab_entries, wantlist=True) }}"
+      loop: "{{ lookup('dict', config_fstab_entries, wantlist=True) }}"

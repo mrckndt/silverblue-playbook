@@ -1,0 +1,42 @@
+---
+- name: "snapper: Install package"
+  community.general.rpm_ostree_pkg:
+    name: snapper
+    state: "present"
+  become: yes
+  notify:
+    - "services: Apply rpm-ostree changes live"
+    - "snapper: Enable timers"
+
+- name: "snapper: Create subvolumes"
+  ansible.builtin.shell:
+    cmd: "if [[ ! -d {{ item.value.subvolume }}/.snapshots ]]; then \
+     btrfs subvol create {{ item.value.subvolume }}/.snapshots; fi"
+  with_dict: "{{ services_snapper_configs }}"
+  become: yes
+  notify:
+    - "services: Apply rpm-ostree changes live"
+    - "snapper: Enable timers"
+
+- name: "snapper: Create configuration folder"
+  ansible.builtin.file:
+    path: /etc/snapper/configs
+    state: directory
+    mode: '0755'
+  become: yes
+  notify:
+    - "services: Apply rpm-ostree changes live"
+    - "snapper: Enable timers"
+
+- name: "snapper: Place configurations"
+  ansible.builtin.template:
+    src: snapper-config.j2
+    dest: "/etc/snapper/configs/{{ item.key }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_dict: "{{ services_snapper_configs }}"
+  become: yes
+  notify:
+    - "services: Apply rpm-ostree changes live"
+    - "snapper: Enable timers"

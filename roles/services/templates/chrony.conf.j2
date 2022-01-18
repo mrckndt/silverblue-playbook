@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+
+{% for server in services_chrony_servers %}
+server {{ server }} iburst nts
+{% endfor %}
+
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+keyfile /etc/chrony.keys
+ntsdumpdir /var/lib/chrony
+leapsectz right/UTC
+logdir /var/log/chrony

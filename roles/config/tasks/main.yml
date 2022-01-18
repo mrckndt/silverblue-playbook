@@ -1,0 +1,23 @@
+---
+- name: Include users
+  ansible.builtin.include: users.yml
+  when: config_users_enable | bool
+
+- name: Include grub
+  ansible.builtin.include: grub.yml
+  when: config_grub_enable | bool
+
+- name: Include networking
+  ansible.builtin.include: networking.yml
+
+- name: Include sysctl
+  ansible.builtin.include: sysctl.yml
+  when: config_sysctl_enable | bool
+
+- name: Include btrfs
+  ansible.builtin.include: btrfs.yml
+  when: config_btrfs_enable | bool
+
+- name: Include fstab
+  ansible.builtin.include: fstab.yml
+  when: config_fstab_enable | bool

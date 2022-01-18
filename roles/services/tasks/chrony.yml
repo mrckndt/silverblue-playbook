@@ -1,0 +1,8 @@
+---
+- name: "chrony: Enable NTS"
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
+  loop: '{{ services_chrony_servers }}'
+  become: yes
+  notify: "chrony: Restart service"

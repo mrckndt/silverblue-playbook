@@ -1,15 +1,9 @@
-flatpak_remotes:
-  flathub:
-    state: present
-    url: https://flathub.org/repo/flathub.flatpakrepo
+services_flatpak_remotes:
   flathub-beta:
     state: present
     url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-  fedora:
-    state: present
-    url: oci+https://registry.fedoraproject.org
 
-flatpak_flatpaks:
+services_flatpak_packages:
   com.belmoussaoui.Obfuscate:
     state: present
     remote: flathub
@@ -109,9 +103,6 @@ flatpak_flatpaks:
   org.libreoffice.LibreOffice:
     state: present
     remote: flathub
-  org.mozilla.firefox:
-    state: present
-    remote: flathub
   org.remmina.Remmina:
     state: absent
     remote: flathub
@@ -183,7 +174,7 @@ flatpak_flatpaks:
     state: present
     remote: fedora
 
-rpm_ostree_base_packages:
+rpm_ostree_basePackages:
   firefox:
     state: absent
   gnome-software-rpm-ostree:
@@ -195,7 +186,7 @@ rpm_ostree_kargs:
   'rd.luks.options=discard':
     state: absent
 
-rpm_ostree_layered_packages:
+rpm_ostree_layeredPackages:
   ansible:
     state: present
   atool:
@@ -254,10 +245,6 @@ rpm_ostree_layered_packages:
     state: present
   tmux:
     state: present
-  virt-manager:
-    state: present
-  libvirt-client:
-    state: present
   wl-clipboard:
     state: present
   youtube-dl:
@@ -265,42 +252,6 @@ rpm_ostree_layered_packages:
   zsh:
     state: present
 
-etc_firewalld:
-  syncthing:
-    zone: FedoraWorkstation
-    state: enabled
-
-etc_sysctl_params:
-  kernel.unprivileged_bpf_disabled:
-    value: 1
-    state: present
-  fs.inotify.max_user_watches:
-    value: 524288
-    state: present
-
-etc_fstab_entries:
-  root:
-    path: /
-    fstype: btrfs
-    opts: noatime,subvol=root,compress=zstd:1,x-systemd.device-timeout=0
-    passno: 0
-    dump: 0
-    state: present
-  home:
-    path: /home
-    fstype: btrfs
-    opts: subvol=home,compress=zstd:1,x-systemd.device-timeout=0
-    passno: 0
-    dump: 0
-    state: present
-  docker:
-    path: /var/lib/docker
-    fstype: btrfs
-    opts: subvol=docker,compress=zstd:1,x-systemd.device-timeout=0
-    passno: 0
-    dump: 0
-    state: mounted
-
-users:
+config_users:
   flexo:
     shell: /bin/zsh

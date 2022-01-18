@@ -1,0 +1,44 @@
+---
+# this is necessary for setting up everything in one run
+# otherwise the computers needs to be rebooted and the playbook
+# needs to be re-run
+services_rpm_ostree_applyLive: true
+
+services_libvirtd_enable: true
+services_libvirtd_packages:
+  - virt-manager
+  - libvirt-client
+
+services_chrony_enableNTS: true
+services_chrony_servers:
+  #- time.cloudflare.com
+  - nts.sth1.ntp.se
+  - nts.sth2.ntp.se
+
+services_snapper_enable: true
+services_snapper_configs:
+  home:
+    allow_users: ""
+    allow_groups: ""
+    keep_hourly: "120"
+    keep_daily: "30"
+    keep_weekly: "0"
+    keep_monthly: "0"
+    keep_yearly: "0"
+    subvolume: "/home"
+
+services_flatpak_enable: true
+services_flatpak_autoUpdate: true
+services_flatpak_setRemotes: true
+services_flatpak_installFlatpaks: true
+services_flatpak_remotes:
+  flathub:
+    state: present
+    url: https://flathub.org/repo/flathub.flatpakrepo
+  fedora:
+    state: present
+    url: oci+https://registry.fedoraproject.org
+services_flatpak_packages:
+  org.mozilla.firefox:
+    state: present
+    remote: flathub

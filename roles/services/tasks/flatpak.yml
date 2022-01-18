@@ -1,0 +1,48 @@
+---
+- name: "flatpak: Merge remotes with overrides"
+  set_fact:
+    services_flatpak_remotes: '{{ services_flatpak_remotes | combine(services_flatpak_remotes_overrides) }}'
+  when:
+    - services_flatpak_remotes_overrides | default()
+    - services_flatpak_setRemotes | bool
+  
+- name: "flatpak: Merge packages with overrides"
+  set_fact:
+    services_flatpak_packages: '{{ services_flatpak_packages | combine(services_flatpak_packages_overrides) }}'
+  when:
+    - services_flatpak_packages_overrides | default()
+    - services_flatpak_installFlatpaks | bool
+
+- name: "flatpak: Add/remove remotes"
+  community.general.flatpak_remote:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    flatpakrepo_url: "{{ item.value.url }}"
+  become: true
+  loop: "{{ lookup('dict', services_flatpak_remotes, wantlist=True) }}"
+  when:
+    - services_flatpak_setRemotes | bool
+
+- name: "flatpak: Add/remove packages"
+  community.general.flatpak:
+    name: "{{ item.key }}"
+    state: "{{ item.value.state }}"
+    remote: "{{ item.value.remote }}"
+  loop: "{{ lookup('dict', services_flatpak_packages, wantlist=True) }}"
+  when:
+    - services_flatpak_installFlatpaks | bool
+
+# https://github.com/flatpak/flatpak/issues/3847#issuecomment-818532856
+- name: "flatpak: Enable autoUpdate"
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item | regex_replace('.j2', '') }}"
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  with_items:
+    - flatpak-automatic.service.j2
+    - flatpak-automatic.timer.j2
+  when: services_flatpak_autoUpdate | bool
+  notify: "flatpak: Enable timer"

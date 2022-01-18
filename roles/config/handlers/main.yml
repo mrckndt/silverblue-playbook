@@ -1,0 +1,7 @@
+---
+- name: "config: Apply rpm-ostree changes live"
+  ansible.builtin.command:
+    cmd: rpm-ostree ex apply-live
+  become: yes
+  ignore_errors: yes
+  when: config_rpm_ostree_applyLive | bool

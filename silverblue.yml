@@ -4,6 +4,6 @@
     - silverblue
   connection: "local"
   roles:
-    - flatpak
-    - etc
+    - config
+    - services
     - rpm-ostree
