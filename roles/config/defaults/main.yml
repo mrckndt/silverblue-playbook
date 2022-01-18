@@ -1,0 +1,51 @@
+---
+config_hostname: fedora
+
+config_users_enable: true
+config_users:
+  morbo:
+    shell: /bin/zsh
+
+config_grub_enable: true
+
+config_firewalld_enable: true
+config_firewalld_services:
+  syncthing:
+    zone: FedoraWorkstation
+    state: enabled
+
+config_sysctl_enable: true
+config_sysctl_params:
+  kernel.unprivileged_bpf_disabled:
+    value: 1
+    state: present
+  fs.inotify.max_user_watches:
+    value: 524288
+    state: present
+
+config_btrfs_enable: false
+config_btrfsmaintenance_enable: false
+
+config_fstab_enable: true
+config_fstab_entries:
+  root:
+    path: /
+    fstype: btrfs
+    opts: noatime,subvol=root,compress=zstd:1,x-systemd.device-timeout=0
+    passno: 0
+    dump: 0
+    state: present
+  home:
+    path: /home
+    fstype: btrfs
+    opts: subvol=home,compress=zstd:1,x-systemd.device-timeout=0
+    passno: 0
+    dump: 0
+    state: present
+  docker:
+    path: /var/lib/docker
+    fstype: btrfs
+    opts: subvol=docker,compress=zstd:1,x-systemd.device-timeout=0
+    passno: 0
+    dump: 0
+    state: mounted

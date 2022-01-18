@@ -1,0 +1,107 @@
+---
+- name: "rpm-ostree: Enable autoUpdate"
+  ansible.builtin.replace:
+    path: /etc/rpm-ostreed.conf
+    regexp: '^#AutomaticUpdatePolicy=none'
+    replace: 'AutomaticUpdatePolicy=stage'
+  become: yes
+  notify:
+    - "rpm-ostree: Reload rpm-ostree configuration"
+    - "rpm-ostree: Enable timer"
+  when: 
+    - rpm_ostree_autoUpdate | bool
+
+# kernel params
+- name: "rpm-ostree: Merge kargs with overrides"
+  set_fact:
+    rpm_ostree_kargs: '{{ rpm_ostree_kargs | combine(rpm_ostree_kargs_overrides) }}'
+  when:
+    - rpm_ostree_kargs_overrides | default()
+    - rpm_ostree_modifyKargs | bool
+
+- name: "rpm-ostree: Set kargs"
+  ansible.builtin.command:
+    cmd: rpm-ostree kargs --append-if-missing="{{ item.key }}"
+  register: result
+  become: yes
+  changed_when: '"Kernel arguments updated" in result.stdout'
+  loop: "{{ lookup('dict', rpm_ostree_kargs, wantlist=True) }}"
+  when:
+    - item.value.state == 'present'
+    - rpm_ostree_modifyKargs | bool
+
+- name: "rpm-ostree: Remove kargs"
+  ansible.builtin.command:
+    cmd: rpm-ostree kargs --delete-if-present="{{ item.key }}"
+  register: result
+  become: yes
+  changed_when: '"Kernel arguments updated" in result.stdout'
+  loop: "{{ lookup('dict', rpm_ostree_kargs, wantlist=True) }}"
+  when:
+    - item.value.state == 'absent'
+    - rpm_ostree_modifyKargs | bool
+
+# base packages
+- name: "rpm-ostree: Remove basePackages"
+  ansible.builtin.shell:
+    cmd: rpm-ostree overrides remove "{{ item.key }}" || /bin/true
+  register: result
+  become: yes
+  changed_when: '"Run \"systemctl reboot\" to start a reboot" in result.stdout'
+  loop: "{{ lookup('dict', rpm_ostree_basePackages, wantlist=True) }}"
+  when:
+    - item.value.state == 'absent'
+    - rpm_ostree_modifyBasePackages | bool
+
+- name: "rpm-ostree: Reset basePackages"
+  ansible.builtin.shell:
+    cmd: rpm-ostree overrides reset "{{ item.key }}" || /bin/true
+  register: result
+  become: yes
+  changed_when: '"Run \"systemctl reboot\" to start a reboot" in result.stdout'
+  loop: "{{ lookup('dict', rpm_ostree_basePackages) }}"
+  when:
+    - item.value.state == 'present'
+    - rpm_ostree_modifyBasePackages | bool
+
+# layered packages
+- name: "rpm-ostree: Merge layeredPackages with overrides"
+  set_fact:
+    rpm_ostree_layeredPackages: '{{ rpm_ostree_layeredPackages | combine(rpm_ostree_layeredPackages_overrides) }}'
+  when:
+    - rpm_ostree_layeredPackages_overrides | default()
+    - rpm_ostree_modifyLayeredPackages | bool
+
+- name: "rpm-ostree: Create removalList"
+  set_fact:
+    rpm_ostree_layeredPackages_removalList: "{{ rpm_ostree_layeredPackages_removalList + [item.key] }}"
+  loop: "{{ lookup('dict', rpm_ostree_layeredPackages, wantlist=True) }}"
+  when:
+    - item.value.state == 'absent'
+    - rpm_ostree_modifyLayeredPackages | bool
+
+- name: "rpm-ostree: Remove layeredPackages"
+  community.general.rpm_ostree_pkg:
+    name: "{{ rpm_ostree_layeredPackages_removalList }}"
+    state: "absent"
+  become: yes
+  ignore_errors: yes
+  when:
+    - rpm_ostree_modifyLayeredPackages | bool
+
+- name: "rpm-ostree: Create installList"
+  set_fact:
+    rpm_ostree_layeredPackages_installList: "{{ rpm_ostree_layeredPackages_installList + [item.key] }}"
+  loop: "{{ lookup('dict', rpm_ostree_layeredPackages, wantlist=True) }}"
+  when:
+    - item.value.state == 'present'
+    - rpm_ostree_modifyLayeredPackages | bool
+
+- name: "rpm-ostree: Install layeredPackages"
+  community.general.rpm_ostree_pkg:
+    name: "{{ rpm_ostree_layeredPackages_installList }}"
+    state: "present"
+  become: yes
+  ignore_errors: yes
+  when:
+    - rpm_ostree_modifyLayeredPackages | bool

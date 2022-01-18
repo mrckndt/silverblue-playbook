@@ -1,0 +1,16 @@
+---
+- name: Include snapper
+  ansible.builtin.include: snapper.yml
+  when: services_snapper_enable | bool
+
+- name: Include libvirtd
+  ansible.builtin.include: libvirtd.yml
+  when: services_libvirtd_enable | bool
+
+- name: Include chrony
+  ansible.builtin.include: chrony.yml
+  when: services_chrony_enableNTS | bool
+
+- name: Include flatpak
+  ansible.builtin.include: flatpak.yml
+  when: services_flatpak_enable | bool

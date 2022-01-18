@@ -1,0 +1,9 @@
+---
+- name: "libvirtd: Install packages"
+  community.general.rpm_ostree_pkg:
+    name: "{{ services_libvirtd_packages }}"
+    state: "present"
+  become: yes
+  notify:
+    - "services: Apply rpm-ostree changes live"
+    - "libvirtd: Enable service"

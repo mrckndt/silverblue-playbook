@@ -1,7 +1,7 @@
 ---
-etc_hostname: ice9
+config_hostname: ice9
 
-etc_fstab_entries_overwrite:
+config_fstab_entries_overrides:
   root:
     src: UUID=aa63fb86-3fc9-42d1-82ca-7d47d0238765
   home:
@@ -9,7 +9,7 @@ etc_fstab_entries_overwrite:
   docker:
     src: UUID=aa63fb86-3fc9-42d1-82ca-7d47d0238765
 
-flatpak_flatpaks_overwrite:
+services_flatpak_packages_overrides:
   com.github.Bleuzen.FFaudioConverter:
     state: present
     remote: flathub
@@ -35,6 +35,6 @@ flatpak_flatpaks_overwrite:
     state: present
     remote: flathub
 
-rpm_ostree_layered_packages_overwrite:
+rpm_ostree_layeredPackages_overrides:
   radeontop:
     state: present

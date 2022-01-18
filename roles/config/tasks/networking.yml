@@ -1,0 +1,17 @@
+---
+- name: "config: Set hostname"
+  ansible.builtin.hostname:
+    name: "{{ config_hostname }}"
+    use: systemd
+  become: yes
+
+- name: "firewalld: Configure services"
+  ansible.posix.firewalld:
+    service: "{{ item.key }}"
+    zone: "{{ item.value.zone }}"
+    state: "{{ item.value.state }}"
+    immediate: yes
+    permanent: yes
+  become: yes
+  loop: "{{ lookup('dict', config_firewalld_services, wantlist=True) }}"
+  when: config_firewalld_enable | bool

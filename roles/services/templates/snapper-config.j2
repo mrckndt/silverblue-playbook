@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+
+ALLOW_USERS='{{ item.value.allow_users }}'
+ALLOW_GROUPS='{{ item.value.allow_groups }}'
+TIMELINE_CREATE=yes
+TIMELINE_CLEANUP=yes
+TIMELINE_LIMIT_HOURLY="{{ item.value.keep_hourly }}"
+TIMELINE_LIMIT_DAILY="{{ item.value.keep_daily }}"
+TIMELINE_LIMIT_WEEKLY="{{ item.value.keep_weekly }}"
+TIMELINE_LIMIT_MONTHLY="{{ item.value.keep_monthly }}"
+TIMELINE_LIMIT_YEARLY="{{ item.value.keep_yearly }}"
+
+FSTYPE="btrfs"
+SUBVOLUME="{{ item.value.subvolume }}"

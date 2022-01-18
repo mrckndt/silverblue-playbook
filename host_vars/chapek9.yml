@@ -1,7 +1,7 @@
 ---
-etc_hostname: chapek9
+config_hostname: chapek9
 
-etc_fstab_entries_overwrite:
+config_fstab_entries_overrides:
   root:
     src: UUID=254d6a53-398a-4a53-93d1-c45e61263791
   home:
@@ -9,7 +9,7 @@ etc_fstab_entries_overwrite:
   docker:
     src: UUID=254d6a53-398a-4a53-93d1-c45e61263791
 
-rpm_ostree_kargs_overwrite:
+rpm_ostree_kargs_overrides:
   'i915.enable_psr=0':
     state: present
   'mem_sleep_default=deep':

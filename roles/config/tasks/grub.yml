@@ -1,5 +1,5 @@
 ---
-- name: Check if BootLoaderSpec is enabled
+- name: "grub: Check if BootLoaderSpec is enabled"
   ansible.builtin.lineinfile:
     path: /etc/default/grub
     line: 'GRUB_ENABLE_BLSCFG=true'
@@ -8,7 +8,7 @@
   check_mode: yes
   register: conf
 
-- name: Enable BootLoaderSpec
+- name: "grub: Enable BootLoaderSpec"
   ansible.builtin.command:
     cmd: grub2-switch-to-blscfg
   become: yes

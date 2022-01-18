@@ -1,10 +1,21 @@
 ---
-rpm_ostree_base_packages_list: []  # don't delete this
-rpm_ostree_layered_packages_removal_list: []  # don't delete this
-rpm_ostree_layered_packages_install_list: []  # don't delete this
+# these list are only for role internal tasks
+# this is needed for constructing a package list
+# to vastly reduce installation time
+rpm_ostree_layeredPackages_removalList: []
+rpm_ostree_layeredPackages_installList: []
 
-rpm_ostree_alter_base_packages: true
-rpm_ostree_alter_layered_packages: true
-rpm_ostree_configure_kargs: true
-rpm_ostree_enable_autoupdates: true
-rpm_ostree_apply_live: false
+rpm_ostree_enable: true
+rpm_ostree_autoUpdate: true
+rpm_ostree_modifyBasePackages: true
+rpm_ostree_modifyLayeredPackages: true
+rpm_ostree_modifyKargs: true
+rpm_ostree_basePackages:
+  firefox:
+    state: absent
+rpm_ostree_layeredPackages:
+  ansible:
+    state: present
+rpm_ostree_kargs:
+  'rd.luks.options=discard':
+    state: present
