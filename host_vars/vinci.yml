@@ -48,6 +48,6 @@ rpm_ostree_kargs_overrides:
   'i915.enable_psr=0':
     state: absent
   'mem_sleep_default=deep':
-    state: present
+    state: absent
   'snd-hda-intel.model=dell-headset-multi':
     state: present
